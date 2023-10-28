@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <title>Monthly expenses</title>
+    
+</head>
+<body style="background-color:#D3D3D3" >
+  <header id="main-header" class="bg-success text-white p-4 mb-3" style="background-color:rgb(63, 183, 49)">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+              <h1 id="header-title" style="color:white">Expense Form</h1>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+          <a class="navbar-brand" href="#">Fill In The Form:</a>
+          <!-- Add navigation links or buttons here -->
+      </div>
+    </nav>
+    
+    <style>
+      /* Style the container to control the layout */
+      .content-container {
+          display: flex;
+          align-items: center; /* Vertically center items within the container */
+      }
+      </style>
+    <div class="content-container" >
+      <div class="container">
+        <div class="card">
+          <div class="card-body">
+                <form id="expenseDetails" onsubmit="showMonthlyExpenses(event)" method="post" id="addForm" class="form-inline mb-3">
+
+                 
+
+                  <label style="margin-right: 20px" for="month">To generate a particular months' expenses please choose a year and a month and click on the submit :</label>
+                  <select id="month" name="month" class="form-control mr-2" required>
+
+                      <option value="1">January</option>
+                      <option value="2">February</option>
+                      <option value="3">March</option>
+                      <option value="4">April</option>
+                      <option value="5">May</option>
+                      <option value="6">June</option>
+                      <option value="7">July</option>
+                      <option value="8">August</option>
+                      <option value="9">September</option>
+                      <option value="10">October</option>
+                      <option value="11">November</option>
+                      <option value="12">December</option>
+                      
+                  </select>
+                  <select id="year" name="year" class="form-control mr-2" required>
+
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    
+                    
+                </select>
+                
+                  <div class="form-group">  
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+
+                <div id ="tableid" class="container mt-5" style="display: none">
+                  <h2 id="tableTitle">Expense Table</h2>
+                  <!-- Create a Bootstrap table -->
+                  <table class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Expenses</th>
+                      </tr>
+                    </thead>
+                    <tbody id="expenseTable">
+                      <!-- Table rows will be added here using JavaScript -->
+                    </tbody>
+                  </table>
+                </div>
+                <script src = "https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+              <script>
+                function showMonthlyExpenses(event){
+                  event.preventDefault();
+                  const month = document.getElementById('month').value;
+                  const year = document.getElementById('year').value;
+                  const obj = { year, month };
+                  const token = localStorage.getItem('token');
+                 
+                  const numToMonth ={
+                    '1':"January", '2':"February", 
+                    '3':"March", '4':"April", '5':"May", '6':"June", '7':"July", '8':"August", '9':"September", '10':"October", '11':"November", '12':"December"
+                  }
+                  axios.get("http://localhost:3000/expense/monthlyexpenses/" + year +"/"+ month,{headers: {"Authorization": token}})
+                  .then((response) => {
+                    console.log(response,"&*$&&*&$&*")
+                    const tableid = document.getElementById("tableid")
+                    const expenseTable = document.getElementById('expenseTable');
+                    tableid.style.display = 'block'
+                    expenseTable.innerHTML = '';
+
+                    if (response.status===200){
+                      const listOfExpenses = response.data.listOfExpenses
+                      const totalExpenses = response.data.totalExpenses
+                      if (totalExpenses>0){
+                        document.getElementById("tableTitle").innerHTML = `Expense Table for the month of ${numToMonth[month]}, ${year}`
+                        
+                        
+                        for (var i =0;i< listOfExpenses.length; i++){
+                            if (listOfExpenses[i].hasOwnProperty('id') && listOfExpenses[i].hasOwnProperty('amount') && listOfExpenses[i].hasOwnProperty('description') && listOfExpenses[i].hasOwnProperty('category') && listOfExpenses[i].hasOwnProperty('createdAt')){
+                              
+                              const newRow = document.createElement('tr');
+                                let id = listOfExpenses[i]['id']
+                                let amount = listOfExpenses[i]['amount'].toString();
+                                
+                                let description = listOfExpenses[i]['description']
+                                let category = listOfExpenses[i]['category']
+                                const dateTimeString = listOfExpenses[i]['createdAt']
+                                const [datePart, timePart] = dateTimeString.split('T');
+                                const [timeWithoutMilliSeconds, milliseconds] = timePart.split('.');
+                                const time = timeWithoutMilliSeconds; 
+                                newRow.innerHTML = `
+                                  <td>${datePart}</td>
+                                  <td>${time}</td>
+                                  <td>${description}</td>
+                                  <td>${category}</td>
+                                  <td>${amount}</td>`;
+                                expenseTable.appendChild(newRow);
+                                  }
+                              }
+                              const totalExp = totalExpenses.toString();
+                              const formattedTotalExp = `<strong>${totalExp}</strong>`;
+                              const TotalExpenses =`<strong>Total Expenses:</strong>`;
+
+                              const newRow = document.createElement('tr');
+                              newRow.innerHTML = `
+                                  <td>${TotalExpenses}</td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td>${formattedTotalExp}</td>`;
+                                  expenseTable.appendChild(newRow);
+                            }
+                            else{
+                              
+                              tableTitle.style.display ='block';
+                              document.getElementById("tableTitle").innerHTML = `No data available for the month of ${numToMonth[month]}, ${year}`
+                              
+                            }
+                    
+                          }else{
+                            
+                            tableTitle.style.display ='block';
+                              document.getElementById("tableTitle").innerHTML = `No data available for the month of ${numToMonth[month]}, ${year}`
+                             
+                            }
+                  })
+                    
+                    
+                .catch((err) => {
+                    console.log(err);
+
+                })
+                }
+
+              </script>
+            </body>
+            </html>
