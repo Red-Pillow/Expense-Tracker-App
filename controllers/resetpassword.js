@@ -24,7 +24,7 @@ const sendResetPasswordMail=async(name,email,id)=>{
             from: process.env.emailUser,
             to: email,
             subject: 'For Reset Password',
-            html: `<a href="http://localhost:3000/password/resetpassword/${id}">Reset password</a>`,
+            html: `<a href="http://13.48.10.109:3000/password/resetpassword/${id}">Reset password</a>`,
         }
 
         transporter.sendMail(mailOptions, function(error,info){
@@ -62,7 +62,7 @@ const forgotpassword = async (req, res) => {
              //   from: 'yj.rocks.2411@gmail.com', // Change to your verified sender
               //  subject: 'Sending with SendGrid is Fun',
                // text: 'and easy to do anywhere, even with Node.js',
-               // html: `<a href="http://localhost:3000/password/resetpassword/${id}">Reset password</a>`,
+               // html: `<a href="http://13.48.10.109:3000/password/resetpassword/${id}">Reset password</a>`,
             //}
 
             //sgMail

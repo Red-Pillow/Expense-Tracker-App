@@ -112,7 +112,7 @@
                     '1':"January", '2':"February", 
                     '3':"March", '4':"April", '5':"May", '6':"June", '7':"July", '8':"August", '9':"September", '10':"October", '11':"November", '12':"December"
                   }
-                  axios.get("http://localhost:3000/expense/monthlyexpenses/" + year +"/"+ month,{headers: {"Authorization": token}})
+                  axios.get("http://13.48.10.109:3000/expense/monthlyexpenses/" + year +"/"+ month,{headers: {"Authorization": token}})
                   .then((response) => {
                     console.log(response,"&*$&&*&$&*")
                     const tableid = document.getElementById("tableid")

@@ -91,7 +91,7 @@
                   const token = localStorage.getItem('token');
                  console.log(year)
                   
-                  axios.get("http://localhost:3000/expense/yearlyexpenses/" + year,{headers: {"Authorization": token}})
+                  axios.get("http://13.48.10.109:3000/expense/yearlyexpenses/" + year,{headers: {"Authorization": token}})
                   .then((response) => {
                     console.log(response,"&*$&&*&$&*")
                     const tableid = document.getElementById("tableid")
