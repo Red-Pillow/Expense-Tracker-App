@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <!--This page will not be displayed-->
+    </head>
+<body>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+
+<script> 
+    const token = localStorage.getItem("token")
+    
+    axios.get("http://51.20.197.253:3000/user/logout/",{headers: {"Authorization": token}})
+            .then((response) => {
+                
+                localStorage.setItem('token',response.data.token)
+                window.location.assign("login");
+            })
+            .catch((err)=>{
+
+            })
+</script>
+
+
+
+
+</body>
+</html>

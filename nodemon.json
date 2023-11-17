@@ -1,0 +1,30 @@
+{
+    "env":{
+        "TOKEN_SECRET" : "46758tgv8tuyfhjvbsw45e6rtuighvnmbu0890iaewedfgchnvgturtydhgjgkoiue556yvg45rcgvhb",
+
+"RAZORPAY_KEY_ID":"rzp_test_qRSPd4oxd2PeHL",
+"RAZORPAY_KEY_SECRET" : "EQGR0EwCQoF57LGqsX5Sv7z9",
+
+"secret_jwt" : "thisismysecretkey",
+
+"emailUser":"sahu5chetan5@gmail.com",
+"emailPassword":"hlmo xlzy yyxe zwoy",
+
+
+"BUCKET_NAME"  :"expensetrackingapp18",
+"IAM_USER_KEY":"AKIA3RDAL5WYJPSACWVY",
+"IAM_USER_SECRET":"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",
+"AWS_SDK_LOAD_CONFIG":"1",
+
+
+
+"DB_NAME":"node-complete",
+"DB_USERNAME":"root",
+"DB_PASSWORD":"1234567890",
+"DB_TYPE":"mysql",
+"DB_HOSTNAME":"localhost",
+
+
+"PORT":3000
+    }
+}
